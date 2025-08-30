@@ -1,0 +1,30 @@
+{
+  "project": "Polling App",
+  "description": "A Next.js polling app with authentication, poll creation, and Supabase integration. Uses shadcn/ui, react-hook-form, TailwindCSS, and TypeScript.",
+  "rules": [
+    {
+      "name": "Folder Structure",
+      "content": "Pages live in src/app. Auth pages are under src/app/(auth)/login and src/app/(auth)/register. Components live in src/components, with UI components under src/components/ui. Supabase config is in src/lib/supabase.ts."
+    },
+    {
+      "name": "UI and Styling",
+      "content": "Use shadcn/ui components for UI (Button, Input, Card). Style with TailwindCSS. Keep components minimal and reusable."
+    },
+    {
+      "name": "Forms",
+      "content": "Use react-hook-form for handling form state and validation. Keep form components in src/components. Each form should handle errors gracefully."
+    },
+    {
+      "name": "Auth and Database",
+      "content": "Use Supabase for authentication (sign in, sign up) and database actions. Always import Supabase client from src/lib/supabase.ts."
+    },
+    {
+      "name": "Code Style",
+      "content": "Use TypeScript, React functional components, and hooks. Prefer server components unless interactivity is required. Follow PascalCase for components, lowercase for directories."
+    },
+    {
+      "name": "Scaffolding",
+      "content": "When asked to scaffold a feature, create a page under src/app/[feature], and reusable components under src/components. Follow the folder structure strictly."
+    }
+  ]
+}
