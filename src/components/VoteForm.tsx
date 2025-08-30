@@ -1,49 +1,32 @@
 "use client";
-
-import { useState } from "react";
+import React from "react";
 import Button from "./ui/button";
+import Input from "./ui/input";
+import { Poll } from "../lib/polls";
 
-interface VoteFormProps {
-  poll: {
-    id: string | string[] | undefined;
-    question: string;
-    options: string[];
-  };
-  onVote: (option: string) => void;
-}
+type VoteFormProps = {
+  poll: Poll;
+  onVote: (optionId: string) => void;
+};
 
 export default function VoteForm({ poll, onVote }: VoteFormProps) {
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (selectedOption) {
-      onVote(selectedOption);
-    }
-  };
-
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">{poll.question}</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {poll.options.map((option, idx) => (
-          <label
-            key={idx}
-            className="flex items-center space-x-2 cursor-pointer"
-          >
-            <input
+      <h2 className="text-xl font-semibold">{poll.question}</h2>
+      <form className="space-y-2">
+        {poll.options.map((option) => (
+          <div key={option.id} className="flex items-center gap-2">
+            <Input
               type="radio"
-              value={option}
-              checked={selectedOption === option}
-              onChange={() => setSelectedOption(option)}
-              className="cursor-pointer"
+              name="vote"
+              value={option.id}
+              id={option.id}
+              className="w-4 h-4"
+              onChange={() => onVote(option.id)}
             />
-            <span>{option}</span>
-          </label>
+            <label htmlFor={option.id}>{option.label}</label>
+          </div>
         ))}
-        <Button type="submit" disabled={!selectedOption}>
-          Submit Vote
-        </Button>
       </form>
     </div>
   );
