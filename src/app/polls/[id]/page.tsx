@@ -1,15 +1,24 @@
-import { notFound } from "next/navigation";
-import { getPoll } from "../../../lib/polls";
+import { useParams } from "next/navigation";
 import VoteForm from "../../../components/VoteForm";
 
-export default function PollDetailPage({ params }: { params: { id: string } }) {
-  const poll = getPoll(params.id);
-  if (!poll) return notFound();
+export default function PollDetailPage() {
+  const params = useParams();
+  const pollId = params?.id;
+
+  const poll = {
+    id: pollId,
+    question: "What is your favorite programming language?",
+    options: ["JavaScript", "Python", "TypeScript", "Go"],
+  };
+
+  const handleVote = (option: string) => {
+    console.log(`Voted for: ${option}`);
+    alert(`You voted for: ${option}`);
+  };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-semibold">{poll.question}</h1>
-      <VoteForm pollId={poll.id} options={poll.options} />
+    <div className="max-w-xl mx-auto p-6">
+      <VoteForm poll={poll} onVote={handleVote} />
     </div>
   );
 }
