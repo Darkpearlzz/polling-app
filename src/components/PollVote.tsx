@@ -25,8 +25,6 @@ export default function PollVote({ poll: initialPoll }: { poll: Poll }) {
     if (!selectedOption) return;
 
     startTransition(() => {
-      // In a real app, you would send this to your server/database
-      // For demonstration, we'll update the state locally
       const updatedOptions = poll.options.map((opt) =>
         opt.id === selectedOption ? { ...opt, votes: opt.votes + 1 } : opt
       );
