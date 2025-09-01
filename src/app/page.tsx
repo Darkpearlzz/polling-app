@@ -1,16 +1,19 @@
-export default function Home() {
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
+export default function HomePage() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-6">
-      <h1 className="text-4xl font-bold mb-4">Welcome to the Polling App</h1>
-      <p className="text-lg text-gray-700 mb-6">
-        Create, vote, and explore polls easily!
+    <div className="text-center flex flex-col items-center justify-center min-h-[70vh]">
+      <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
+        Welcome to the Polling App
+      </h1>
+      <p className="text-lg text-muted-foreground max-w-2xl mb-8">
+        Create, share, and vote on polls in real-time. See what the world
+        thinks.
       </p>
-      <a
-        href="/polls/1"
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-      >
-        View a Sample Poll
-      </a>
-    </main>
+      <Link href="/polls">
+        <Button size="lg">View All Polls</Button>
+      </Link>
+    </div>
   );
 }
