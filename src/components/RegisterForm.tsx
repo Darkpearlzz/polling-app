@@ -2,100 +2,117 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
 import { useAuth } from "../context/AuthContext";
-import { Input } from "@/components/ui/input";
+import { RegisterSchema } from "@/lib/validators";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+type FormData = z.infer<typeof RegisterSchema>;
 
 export default function RegisterForm() {
   const { signUp } = useAuth();
   const router = useRouter();
+  const [authError, setAuthError] = useState<string | null>(null);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(RegisterSchema),
+  });
 
-  const validate = (): string | null => {
-    if (!email || !password || !confirmPassword)
-      return "All fields are required";
-    if (!/^\S+@\S+\.\S+$/.test(email)) return "Please enter a valid email";
-    if (password.length < 6) return "Password must be at least 6 characters";
-    if (password !== confirmPassword) return "Passwords do not match";
-    return null;
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(false);
-
-    const validationError = validate();
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-
-    setLoading(true);
-    const { error } = await signUp(email, password);
-    setLoading(false);
+  const onSubmit = async (data: FormData) => {
+    setAuthError(null);
+    const { error } = await signUp(data.email, data.password);
 
     if (error) {
-      setError(error.message ?? "Registration failed");
+      setAuthError(error.message ?? "Registration failed");
     } else {
-      setSuccess(true);
+      router.push("/polls");
     }
   };
 
   return (
-    <form onSubmit={onSubmit} className="w-full max-w-md space-y-4">
-      <div>
-        <label className="block text-sm font-medium">Email</label>
-        <Input
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-          type="email"
-          required
-        />
-      </div>
+    <Card className="w-full max-w-sm">
+      <CardHeader>
+        <CardTitle>Create an account</CardTitle>
+        <CardDescription>
+          Enter your details to create a new account.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="name@example.com"
+              {...register("email")}
+            />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              {...register("password")}
+            />
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password.message}</p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Input
+              id="confirmPassword"
+              type="password"
+              placeholder="••••••••"
+              {...register("confirmPassword")}
+            />
+            {errors.confirmPassword && (
+              <p className="text-sm text-red-500">
+                {errors.confirmPassword.message}
+              </p>
+            )}
+          </div>
 
-      <div>
-        <label className="block text-sm font-medium">Password</label>
-        <Input
-          value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
-          type="password"
-          required
-        />
-      </div>
+          {authError && (
+            <p className="text-sm text-red-500 font-medium">{authError}</p>
+          )}
 
-      <div>
-        <label className="block text-sm font-medium">Confirm Password</label>
-        <Input
-          value={confirmPassword}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setConfirmPassword(e.target.value)
-          }
-          type="password"
-          required
-        />
-      </div>
-
-      {error && <p className="text-sm text-red-600">{error}</p>}
-      {success && (
-        <p className="text-sm text-green-600">
-          Check your email to confirm your account!
+          <Button type="submit" disabled={isSubmitting} className="w-full">
+            {isSubmitting ? "Signing up..." : "Sign Up"}
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter>
+        <p className="text-sm text-muted-foreground text-center w-full">
+          Already have an account?{" "}
+          <Link href="/login" className="text-primary font-medium">
+            Sign in
+          </Link>
         </p>
-      )}
-
-      <Button type="submit" disabled={loading}>
-        {loading ? "Signing up..." : "Sign Up"}
-      </Button>
-    </form>
+      </CardFooter>
+    </Card>
   );
 }

@@ -11,7 +11,7 @@ export default function Header() {
     <header className="bg-white border-b sticky top-0 z-50">
       <nav className="container mx-auto flex items-center justify-between p-4">
         <Link href="/" className="text-2xl font-bold text-primary">
-          Pollify
+          PollsApp
         </Link>
         <div className="flex items-center gap-4">
           {user ? (
