@@ -1,0 +1,107 @@
+[33mcommit df41eeaf4a38fca8bc42776b0f2f82ac2abc927b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Tue Sep 2 21:14:42 2025 +0100
+
+    feat(testing): Introduce Jest for unit and integration testing
+
+[33mcommit 0ebfd24e7483056af5542ecf8042fae8f70f233e[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Mon Sep 1 16:41:17 2025 +0100
+
+    feat: add PollVote component for improved poll voting UI
+
+[33mcommit 8aab5657fb8182c61c111ed1a893a2e35eb730e7[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Mon Sep 1 16:31:25 2025 +0100
+
+    feat: Refactor RegisterForm to use react-hook-form and Zod
+
+[33mcommit 12f402bb221425e3fe38b416c3bf96910ec33493[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Mon Sep 1 14:19:34 2025 +0100
+
+    Update files
+
+[33mcommit 0d23caf767c9e783b2309ed8dc89f13fd29e8d2b[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 21:05:01 2025 +0100
+
+    add changes
+
+[33mcommit 7aadd4fe64fbcb79b3095780a35be5c2de2dff0f[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 20:32:49 2025 +0100
+
+    docs: add AI edit notes capturing inline vs chat strengths and example prompts
+
+[33mcommit 96718e1e0c0cb5a30e45cacb9f045aa5a088fce2[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 20:26:47 2025 +0100
+
+    add VoteForm client component and polls index pages
+
+[33mcommit 402d4738b1bed8d84bb62bb6b2fb63c22122602a[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 19:46:31 2025 +0100
+
+    feat: add dynamic poll detail route at /polls/[id] with not-found UI
+
+[33mcommit 58561f0ddff1ef1a1759382f34fd5ef4f92ae385[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 19:40:48 2025 +0100
+
+    feat: add mock poll data and helpers in src/lib/polls.ts
+
+[33mcommit 0fb9b2200e7c30e7eb4dbbcf59083a3ec49f9b33[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 03:01:40 2025 +0100
+
+    feat: implement PollForm with reusable Input and Button components
+
+[33mcommit b60d58f6f1561b485e8910d97515811146de2921[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 01:29:42 2025 +0100
+
+    feat(auth): add login/register pages and wrap app with AuthProvider
+
+[33mcommit e09d3b035865f290deabef4515194874343355a3[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 00:54:27 2025 +0100
+
+    fix(auth): add UI Input/Button and type event handlers in LoginForm
+
+[33mcommit 2b1a9fcc7326a21557b1ac5c4cc70369b0d4fcfa[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 00:39:28 2025 +0100
+
+    feat(auth): add AuthProvider with signUp/signIn/signOut
+
+[33mcommit 9c006b0368f9a9c695e2ad97db22d37247c2a842[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 00:36:25 2025 +0100
+
+    feat(auth): add supabase client
+
+[33mcommit 508250a367fe3f5b9714611d656231fa6324166b[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 00:25:03 2025 +0100
+
+    chore: add folder structure & placeholder files
+
+[33mcommit c2a26329354c2b7cf29ef4f21182b446d5bffd6f[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Sat Aug 30 00:00:52 2025 +0100
+
+    chore: add supabase and shadcn helper deps
+
+[33mcommit 8388833b78d4b9ea40bfd6a37d323e1f60f1b754[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Fri Aug 29 23:51:11 2025 +0100
+
+    first commit
+
+[33mcommit 0b2fd50c6d46efdcfa00117687a0e1d33c35c032[m
+Author: Rhoda <rhodaugboro@gmail.com>
+Date:   Fri Aug 29 23:46:44 2025 +0100
+
+    Initial commit from Create Next App

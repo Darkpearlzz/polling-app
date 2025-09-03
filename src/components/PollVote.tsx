@@ -13,23 +13,47 @@ import {
   CardTitle,
 } from "./ui/card";
 
-export default function PollVote({ poll: initialPoll }: { poll: Poll }) {
+// Import the refactored, database-handling vote function
+import { handleVote } from "@/lib/voteHandler";
+
+// Assuming PollVote receives the poll and the current user's ID as props
+export default function PollVote({
+  poll: initialPoll,
+  userId,
+}: {
+  poll: Poll;
+  userId: string;
+}) {
   const [poll, setPoll] = useState(initialPoll);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isVoted, setIsVoted] = useState(false);
   const [isPending, startTransition] = useTransition();
 
+  // Your original logic to calculate total votes
   const totalVotes = poll.options.reduce((acc, opt) => acc + opt.votes, 0);
 
-  const handleVote = () => {
+  // This is the updated function that handles both local state and the database write
+  const onCastVote = async () => {
     if (!selectedOption) return;
 
-    startTransition(() => {
-      const updatedOptions = poll.options.map((opt) =>
-        opt.id === selectedOption ? { ...opt, votes: opt.votes + 1 } : opt
-      );
-      setPoll({ ...poll, options: updatedOptions });
-      setIsVoted(true);
+    // Use a transition to manage the pending state
+    startTransition(async () => {
+      try {
+        // Call the database function to record the vote.
+        // We pass the poll ID, user ID, and selected option ID.
+        await handleVote(poll.id, userId, selectedOption);
+
+        // After a successful database write, update the local state for a smooth UI experience
+        const updatedOptions = poll.options.map((opt) =>
+          opt.id === selectedOption ? { ...opt, votes: opt.votes + 1 } : opt
+        );
+        setPoll({ ...poll, options: updatedOptions });
+        setIsVoted(true);
+      } catch (error) {
+        // Handle any errors from the database operation
+        console.error("Failed to cast vote:", error);
+        // You might want to show an error message to the user here
+      }
     });
   };
 
@@ -82,7 +106,7 @@ export default function PollVote({ poll: initialPoll }: { poll: Poll }) {
       <CardFooter>
         {!isVoted && (
           <Button
-            onClick={handleVote}
+            onClick={onCastVote} // Call the new async function on button click
             disabled={!selectedOption || isPending}
             className="w-full"
           >

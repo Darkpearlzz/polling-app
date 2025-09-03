@@ -37,7 +37,6 @@ const invalidPollData = {
   title: "",
   options: ["A", "B"],
 };
-
 describe("Poll Creation", () => {
   test("should successfully create a poll with valid data", async () => {
     const userId = "test-user-id";
